@@ -21,7 +21,6 @@ a
 .infobox
 {
 	float:right;
-	width:;
 	min-width: 20vw;
 	margin-left: 2vw;
 }
@@ -75,4 +74,16 @@ h1
 p
 {
 	font-size: 1.2em;
+}
+@media only screen and (max-width: 720px)
+{
+	.infobox
+	{
+		float:none;
+		width:100%;
+	}
+	#content
+	{
+		max-width:100%;
+	}
 }

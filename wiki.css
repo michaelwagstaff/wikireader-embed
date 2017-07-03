@@ -1,0 +1,78 @@
+
+body, h1, h2, h3, a
+{
+	font-family: "San Francisco", "Helvetica Neue", "Roboto", "Segoe UI", Helvetica, Arial, sans-serif;
+	font-weight: 400;
+	color:#37393a;
+	line-height: 1.7;
+}
+h1, h2, h3
+{
+	font-weight: 400;
+}
+.mw-jump, #siteSub, .toc, .mw-editsection, .reference, #References, .reflist, #footer, .portal, #p-search, .vectorMenu, .vectorTabs, #mw-navigation, .nv-view, .nv-talk, .nv-edit, li>sup
+{
+	display:none;
+}
+a
+{
+	font-style: italic;
+}
+.infobox
+{
+	float:right;
+	width:;
+	min-width: 20vw;
+	margin-left: 2vw;
+}
+.infobox ul
+{
+	list-style: none;
+	-webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+    -webkit-padding-start: 0;
+}
+.infobox th,.infobox tr, .infobox td
+{
+	background: none !important;
+}
+.infobox th
+{
+	padding-top:1.5em;
+	padding-bottom:0.5em;
+}
+.infobox td {
+	padding-top:0.5em;
+	padding-bottom:0.5em;
+}
+.infobox tr
+{
+	border-bottom:1px solid #ccc;
+}
+.infobox a
+{
+	font-style: initial;
+}
+#content
+{
+	max-width: 80%;
+	left:0;
+	right:0;
+	margin:auto;
+	margin-top: 10vh;
+}
+h1
+{
+	font-size: 3em;
+	margin-bottom: 1em;
+}
+.mw-headline
+{
+	font-size: 1.5em;
+}
+p
+{
+	font-size: 1.2em;
+}

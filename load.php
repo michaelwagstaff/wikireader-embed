@@ -6,7 +6,14 @@ echo $newPage;
 
 function getPage()
 {
-	$url = "Silver_nitrate";
+	
+	if(isset($_GET['url'])) {
+		$url = $_GET["url"];
+	}
+	else
+	{
+		$url = "Silver_nitrate";
+	}
 	$wikiReader = curl_init();
 	curl_setopt($wikiReader, CURLOPT_URL, "https://en.wikipedia.org/wiki/" . $url);
 	curl_setopt($wikiReader, CURLOPT_RETURNTRANSFER, 1);
@@ -56,9 +63,11 @@ function pageProcess($page)
 	//$tagToSplit = $tagToSplit->parentNode;
 	$toSplitString = $dom->saveHTML($tagToSplit);
 	$pageContent = $dom->saveHTML();
-	$pageContent = preg_split("[".$toSplitString."]", $pageContent)[0];
-	$pageContent = substr($pageContent, 0, -10);
+
+	/*$pageContent = preg_split("[".$toSplitString."]", $pageContent)[0];
+	$pageContent = substr($pageContent, 0, -10);*/
+	$pageContent = preg_replace('#href="/wiki/#', 'href="load.php?url=', $pageContent);
 	echo $pageContent;
-	return $dom->loadHTML($pageContent);
+	$dom->loadHTML($pageContent);
 }
 ?>

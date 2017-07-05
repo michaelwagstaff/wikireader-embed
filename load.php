@@ -32,6 +32,8 @@ function getPage()
 function pageProcess($page)
 {
 	$dom = new DOMDocument();
+
+	libxml_use_internal_errors(true);
 	$dom->loadHTML($page);
 	$toRemove = [];
 	$toRemove[] = $dom->getElementsByTagName('link');

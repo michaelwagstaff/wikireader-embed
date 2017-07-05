@@ -42,7 +42,7 @@ a
 	padding-top:1.5em;
 	padding-bottom:0.5em;
 }
-.infobox td {
+.infobox td, .infobox tr th {
 	padding-top:0.5em;
 	padding-bottom:0.5em;
 }

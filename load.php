@@ -52,6 +52,13 @@ function pageProcess($page)
 			$item->parentNode->removeChild($item); 
 		}	
 	}
-	return $dom->saveHTML();
+	$tagToSplit = $dom->getElementById ("External_links");
+	//$tagToSplit = $tagToSplit->parentNode;
+	$toSplitString = $dom->saveHTML($tagToSplit);
+	$pageContent = $dom->saveHTML();
+	$pageContent = preg_split("[".$toSplitString."]", $pageContent)[0];
+	$pageContent = substr($pageContent, 0, -10);
+	echo $pageContent;
+	return $dom->loadHTML($pageContent);
 }
 ?>

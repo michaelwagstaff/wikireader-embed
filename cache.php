@@ -7,6 +7,7 @@ $utils = new utils;
 $directory = $utils->openPage($url);
 $conn = $utils->database();
 $cache = new cache;
+$maxLength = 0;
 $cache->getLinks($directory);
 class cache 
 {
@@ -46,7 +47,7 @@ class cache
 				foreach($tableLinks as $link)
 				{
 					$counter++;
-					if($counter>=36 && $counter<=40)
+					if($counter>=36 && $counter<=50)
 					{
 						echo $link->parentNode->parentNode->firstChild->c14n();
 						echo $this->saveLink($link->nodeValue,$link->getAttribute('href'), "", $dom);
@@ -66,8 +67,14 @@ class cache
 		$title = ucwords($title);
 		$uri = explode("/",$url)[2];
 		$pageFetch = new pageFetch;
-		echo $pageFetch->constructor($uri);
-		return $title . "  " . $uri . "<br>";
+		
+		$pageContent =  $pageFetch->constructor($uri);
+		if(strlen($pageContent)>$GLOBALS['maxLength'])
+		{
+			$GLOBALS['maxLength'] = strlen($pageContent);
+		}
+		
+		return $title . "  " . $uri . "<br>" . $GLOBALS['maxLength'] . "<br>";
 	}
 }
 ?>

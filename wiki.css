@@ -10,7 +10,7 @@ h1, h2, h3
 {
 	font-weight: 400;
 }
-.mw-jump, #siteSub, .toc, .mw-editsection, .reference, #References, .reflist, #footer, .portal, #p-search, .vectorMenu, .vectorTabs, #mw-navigation, .nv-view, .nv-talk, .nv-edit, li>sup,.ambox,.mw-indicators,.navbox
+.mw-jump, #siteSub, .toc, .mw-editsection, .reference,.references, #References, .reflist, #footer, .portal, #p-search, .vectorMenu, .vectorTabs, #mw-navigation, .nv-view, .nv-talk, .nv-edit, li>sup,.ambox,.mw-indicators,.navbox,.mw-normal-catlinks,.mw-hidden-catlinks,.stub,.printfooter
 {
 	display:none;
 }

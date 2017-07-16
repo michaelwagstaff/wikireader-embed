@@ -8,7 +8,6 @@ $directory = $utils->openPage($url);
 $conn = $utils->database();
 $cache = new cache;
 $cache->getLinks($directory);
-
 class cache 
 {
 	function getLinks($page)
@@ -30,7 +29,6 @@ class cache
 		$tagToSplit = $dom->getElementById ("External_links");
 		$toSplitString = $dom->saveHTML($tagToSplit);
 		$pageContent = $dom->saveHTML();
-
 		$pageContent = preg_split("[".$toSplitString."]", $pageContent)[0];
 		$dom->loadHTML($pageContent);
 
@@ -39,13 +37,18 @@ class cache
 		$links = [];
 		foreach($tables as $table)
 		{
+
 			$links[] = $dom->getElementsByTagName('a');
+
 			foreach($links as $tableLinks)
 			{
+
 				foreach($tableLinks as $link)
 				{
+					$counter++;
 					if($counter>=36 && $counter<=40)
 					{
+						echo $link->parentNode->parentNode->firstChild->c14n();
 						echo $this->saveLink($link->nodeValue,$link->getAttribute('href'), "", $dom);
 						/*echo $link->nodeValue;
 						echo $link->getAttribute('href'), '<br>';*/

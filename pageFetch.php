@@ -29,7 +29,7 @@ class pageFetch
 	{
 		$dom = new DOMDocument();
 
-		libxml_use_internal_errors(true);
+		//libxml_use_internal_errors(true);
 		$dom->loadHTML($page);
 		$toRemove = [];
 		$toRemove[] = $dom->getElementsByTagName('link');
@@ -57,17 +57,20 @@ class pageFetch
 				$item->parentNode->removeChild($item);
 			}	
 		}
-		//$tagToSplit = $dom->getElementById ("External_links");
-		//$stringToSplit = $dom->saveHTML($tagToSplit);
+
+		$tagToSplit = $dom->getElementById ("External_links");
+		$stringToSplit = $dom->saveHTML($tagToSplit);
 		$pageContent = $dom->saveHTML();
-		/*if(strlen($stringToSplit))
+		/*
+		if(strlen($stringToSplit))
 		{
 			$toSplitString = $dom->saveHTML($tagToSplit);
 			
 
 			$pageContent = preg_split("[".$toSplitString."]", $pageContent)[0];
 			$pageContent = substr($pageContent, 0, -10);
-		}*/
+		}
+		*/
 		$pageContent = preg_replace('#href="/wiki/#', 'href="load.php?url=', $pageContent);
 		return $pageContent;
 		$dom->loadHTML($pageContent);

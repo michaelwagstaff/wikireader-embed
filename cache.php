@@ -58,7 +58,7 @@ class cache
 			}
 		}
 	}
-	function saveLink($title, $url, $symbols, $dom)
+	function saveLink($title, $url, $symbol, $dom)
 	{
 		if(strpos($url,"index.php"))
 		{
@@ -73,7 +73,15 @@ class cache
 		{
 			$GLOBALS['maxLength'] = strlen($pageContent);
 		}
-		
+		$conn = $GLOBALS['utils']->database();
+		$sql = "INSERT INTO wikipages VALUES ($title,$symbol,$url,$pageContent,0);";
+		if ($conn->query($sql) === TRUE) {
+			echo "New record created successfully";
+		} else {
+			echo "Error: " . $sql . "<br>" . $conn->error;
+		}
+		$conn->close();
+
 		return $title . "  " . $uri . "<br>" . $GLOBALS['maxLength'] . "<br>";
 	}
 }

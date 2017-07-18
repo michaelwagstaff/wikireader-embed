@@ -75,5 +75,36 @@ class pageFetch
 		return $pageContent;
 		$dom->loadHTML($pageContent);
 	}
+	function extremeCache($pageContent)
+	{
+		$pageContent = str_replace(array("\n","\r","\t"),'',$pageContent);
+		$pageContent = preg_replace('/<!--(.*)-->/Uis', '', $pageContent);
+		$dom = new DOMDocument();
+		$dom->loadHTML($pageContent);
+		$xpath = new DOMXpath($dom);
+		$toRemove = [];
+		$toRemove[] = $xpath->query("//*[contains(concat(' ', @class, ' '), ' mw-indicators ')]");
+		$toRemove[] = $xpath->query("//*[contains(concat(' ', @class, ' '), ' plainlinks ')]");
+		$toRemove[] = $xpath->query("//*[contains(concat(' ', @class, ' '), ' hatnote ')]");
+		$toRemove[] = $xpath->query("//*[contains(concat(' ', @class, ' '), ' reflist ')]");
+		$toRemove[] = $xpath->query("//*[contains(concat(' ', @class, ' '), ' navbox ')]");
+		$toRemove[] = $xpath->query("//*[contains(concat(' ', @class, ' '), ' mw-editsection ')]");
+		$toRemove[] = $dom->getElementById('siteNotice');
+		$toRemove[] = $dom->getElementById('contentSub');
+		$toRemove[] = $dom->getElementById('jump-to-nav');
+		$remove = [];
+		foreach ($toRemove as $individualItem) {
+			foreach($individualItem as $item)
+			{
+				$remove[] = $item;
+			}
+		}
+		foreach ($remove as $item)
+		{
+				$item->parentNode->removeChild($item);
+		}
+		$pageContent = $dom->saveHTML();
+		return $pageContent;
+	}
 }
 ?>

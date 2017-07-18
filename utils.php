@@ -21,7 +21,7 @@ class utils
 	public function database()
 	{
 		$servername = "localhost";
-		$username = "backend";
+		$username = "root";
 		$password = "";
 		$dbname = "periodic";
 		$conn = new mysqli($servername, $username, $password, $dbname);

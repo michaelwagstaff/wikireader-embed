@@ -9,10 +9,17 @@ body, h1, h2, h3, a
 h1, h2, h3
 {
 	font-weight: 400;
+	-webkit-margin-after: 0px;
 }
-.mw-jump, #siteSub, .toc, .mw-editsection, .reference,.references, #References, .reflist, #footer, .portal, #p-search, .vectorMenu, .vectorTabs, #mw-navigation, .nv-view, .nv-talk, .nv-edit, li>sup,.ambox,.mw-indicators,.navbox,.mw-normal-catlinks,.mw-hidden-catlinks,.stub,.printfooter
+.mw-jump, .toc, .mw-editsection, .reference,.references, #References, .reflist, #footer, .portal, #p-search, .vectorMenu, .vectorTabs, #mw-navigation, .nv-view, .nv-talk, .nv-edit, li>sup,.ambox,.mw-indicators,.navbox,.mw-normal-catlinks,.mw-hidden-catlinks,.stub,.printfooter
 {
 	display:none;
+}
+#siteSub
+{
+	margin-bottom: 1.7em;
+	font-size: 1.2em;
+	color:#676a74;
 }
 a
 {
@@ -65,7 +72,6 @@ a
 h1
 {
 	font-size: 3em;
-	margin-bottom: 1em;
 }
 .mw-headline
 {

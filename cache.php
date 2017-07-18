@@ -47,7 +47,7 @@ class cache
 				foreach($tableLinks as $link)
 				{
 					$counter++;
-					if($counter>=40 && $counter<=40)
+					if($counter>=36)
 					{
 						echo $link->parentNode->parentNode->firstChild->c14n();
 						echo $this->saveLink($link->nodeValue,$link->getAttribute('href'), "", $dom);
@@ -70,19 +70,18 @@ class cache
 		
 		$pageContent = $pageFetch->constructor($uri);
 		$pageContent = $pageFetch->extremeCache($pageContent);
-		echo $pageContent;
 		if(strlen($pageContent)>$GLOBALS['maxLength'])
 		{
 			$GLOBALS['maxLength'] = strlen($pageContent);
 		}
 		$conn = $GLOBALS['utils']->database();
 		$pageContent = addslashes($pageContent);
-		/*$sql = "INSERT INTO wikipages VALUES (\"$title\",\"$symbol\",\"$url\",\"$pageContent\",0,0);";
+		$sql = "INSERT INTO wikipages VALUES (\"$title\",\"$symbol\",\"$url\",\"$pageContent\",0,0);";
 		if ($conn->query($sql) === TRUE) {
 			echo "New record created successfully";
 		} else {
 			echo "Error: " . $sql . "<br>" . $conn->error;
-		}*/
+		}
 		$conn->close();
 
 		return $title . "  " . $uri . "<br>" . $GLOBALS['maxLength'] . "<br>";

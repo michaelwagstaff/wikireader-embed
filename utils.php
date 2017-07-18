@@ -3,6 +3,7 @@ class utils
 {
 	public function openPage($url)
 	{
+		set_time_limit(0);
 		$wikiReader = curl_init();
 		curl_setopt($wikiReader, CURLOPT_URL, "https://en.wikipedia.org/wiki/" . $url);
 		curl_setopt($wikiReader, CURLOPT_RETURNTRANSFER, 1);

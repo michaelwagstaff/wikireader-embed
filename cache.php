@@ -49,8 +49,8 @@ class cache
 					$counter++;
 					if($counter>=36)
 					{
-						echo $link->parentNode->parentNode->firstChild->c14n();
-						echo $this->saveLink($link->nodeValue,$link->getAttribute('href'), "", $dom);
+						$symbol = $link->parentNode->parentNode->firstChild->c14n();
+						echo $this->saveLink($link->nodeValue,$link->getAttribute('href'), $symbol, $dom);
 						/*echo $link->nodeValue;
 						echo $link->getAttribute('href'), '<br>';*/
 					}
@@ -76,7 +76,8 @@ class cache
 		}
 		$conn = $GLOBALS['utils']->database();
 		$pageContent = addslashes($pageContent);
-		$sql = "INSERT INTO wikipages VALUES (\"$title\",\"$symbol\",\"$url\",\"$pageContent\",0,0);";
+		$symbol = substr($symbol, 4, strlen($symbol) - 9);
+		$sql = "INSERT INTO wikipages VALUES (\"$title\",\"$symbol\",\"$url\",\"$pageContent\",0,".strlen($pageContent).");";
 		if ($conn->query($sql) === TRUE) {
 			echo "New record created successfully";
 		} else {

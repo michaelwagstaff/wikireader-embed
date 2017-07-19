@@ -76,7 +76,7 @@ class wikireader
 			$pageContent = substr($pageContent, 0, -10);
 		}
 		*/
-		$pageContent = preg_replace('#href="/wiki/#', 'href="load.php?url=', $pageContent);
+		$pageContent = preg_replace('#href="/wiki/#', 'href="wikiLoad.php?uri=', $pageContent);
 		return $pageContent;
 		$dom->loadHTML($pageContent);
 	}

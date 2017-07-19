@@ -1,7 +1,7 @@
 <?php
 class pageFetch
 {
-	public function constructor($uri)
+	public function loadPage($uri)
 	{
 		//Import heading if applicable here
 		$wikiPage = $this->getPage($uri);
@@ -106,5 +106,6 @@ class pageFetch
 		$pageContent = $dom->saveHTML();
 		return $pageContent;
 	}
+	
 }
 ?>

@@ -1,7 +1,7 @@
 <?php
 class utils
 {
-	public function openPage($url)
+	function openPage($url)
 	{
 		set_time_limit(0);
 		$wikiReader = curl_init();

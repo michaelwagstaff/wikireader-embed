@@ -49,7 +49,7 @@ class wikireader
 		}
 		$cssLink = $dom->createElement('link');
 		$cssLink->setAttribute('rel','stylesheet');
-		$cssLink->setAttribute('href','wiki.css');
+		$cssLink->setAttribute('href','/wikireader/wiki.css');
 		foreach ($remove as $item)
 		{
 			if($counter == 0)

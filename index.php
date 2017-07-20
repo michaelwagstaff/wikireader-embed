@@ -1,4 +1,5 @@
 <?php
+//Need to include a function or something so user does not need to create a seperate php file
 class wikireader
 {
 	public function loadPage($uri = "Silver_nitrate", $useCaching = false)
@@ -50,6 +51,7 @@ class wikireader
 		$cssLink = $dom->createElement('link');
 		$cssLink->setAttribute('rel','stylesheet');
 		$cssLink->setAttribute('href','/wikireader/wiki.css');
+		//Improve method for adding files before release
 		foreach ($remove as $item)
 		{
 			if($counter == 0)
@@ -77,6 +79,7 @@ class wikireader
 		}
 		*/
 		$pageContent = preg_replace('#href="/wiki/#', 'href="wikiLoad.php?uri=', $pageContent);
+		//Use an optional URL parameter to change the php file referenced
 		return $pageContent;
 		$dom->loadHTML($pageContent);
 	}
@@ -199,6 +202,7 @@ class wikireader
 		}
 	}
 	public function database()
+	//Why public??
 	{
 		$servername = "localhost";
 		$username = "root";

@@ -9,7 +9,9 @@ This wikireader is designed to load wikipedia pages, presenting the data in a mo
 
 Firstly create a new instance of the class as follows:
 
-`$wikireader = new wikireader();`
+```php
+$wikireader = new wikireader();
+```
 
 The class has two main functions that can be called (currently).
 

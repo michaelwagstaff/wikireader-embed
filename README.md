@@ -28,4 +28,7 @@ The parameter for the cache function must currently link to a directory page.
 
 Download the repository or add as a submodule to the root of your existing code
 
-You can then import the code, using 'require "wikireader/index.php";'.
+You can then import the code, using:
+```php
+require "wikireader/index.php";
+```

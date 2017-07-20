@@ -15,8 +15,10 @@ The class has two main functions that can be called (currently).
 
 They are as follows:
 
-`public function loadPage(string $uri,[bool $useCaching])
-public function cache(string $uri)`
+```php
+public function loadPage(string $uri,[bool $useCaching])
+public function cache(string $uri)
+```
 
 The parameter for the cache function must currently link to a directory page.
 

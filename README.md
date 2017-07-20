@@ -30,5 +30,5 @@ Download the repository or add as a submodule to the root of your existing code
 
 You can then import the code, using:
 ```php
-require "wikireader/index.php";
+require "./wikireader/index.php";
 ```

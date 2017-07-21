@@ -52,6 +52,7 @@ class wikireader
 		$cssLink->setAttribute('rel','stylesheet');
 		$cssLink->setAttribute('href','/wikireader/wiki.css');
 		//Improve method for adding files before release
+		//Make into an array of inputs
 		foreach ($remove as $item)
 		{
 			if($counter == 0)
@@ -64,20 +65,7 @@ class wikireader
 				$item->parentNode->removeChild($item);
 			}	
 		}
-
-		$tagToSplit = $dom->getElementById ("External_links");
-		$stringToSplit = $dom->saveHTML($tagToSplit);
 		$pageContent = $dom->saveHTML();
-		/*
-		if(strlen($stringToSplit))
-		{
-			$toSplitString = $dom->saveHTML($tagToSplit);
-			
-
-			$pageContent = preg_split("[".$toSplitString."]", $pageContent)[0];
-			$pageContent = substr($pageContent, 0, -10);
-		}
-		*/
 		$pageContent = preg_replace('#href="/wiki/#', 'href="wikiLoad.php?uri=', $pageContent);
 		//Use an optional URL parameter to change the php file referenced
 		return $pageContent;

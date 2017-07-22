@@ -9,8 +9,8 @@ class wikireader
 		{
 			$uri = "/wiki/" . $uri;
 		}
-		$conn = $this->database($dbname, $servername, $username, $password);
-		$sql = "SELECT Contents FROM $tableName WHERE URI = $uri";
+		$conn = $this->database($servername, $username, $password, $dbname);
+		$sql = "SELECT Contents FROM $tableName WHERE URI = '$uri'";
 		$result = $conn->query($sql);
 		$data = $result->fetch_row();
 		echo $data[0];
@@ -18,14 +18,14 @@ class wikireader
 	public function loadPage($uri, $filePathToInsert = "")
 	{
 		$wikiPage = $this->getPage($uri);
-		$newPage = $this->pageProcess($wikiPage, $filePathToInsert);
+		$newPage = $this->pageProcess($wikiPage, $filePathToInsert, false);
 		return $newPage;
 	}
-	public function cache($uri)
+	public function cache($uri, $dbname = "", $servername = "localhost", $username = "root", $password = "", $tableName = "wikipages")
 	{
-		$directory = $this->openPage($url);
-		$conn = $this->database();
-		$this->getLinks($directory);
+		$directory = $this->openPage($uri);
+		$conn = $this->database($servername,$username,$password,$dbname);
+		$this->getLinks($directory, $tableName,$conn);
 	}
 	function getPage($uri)
 	{
@@ -44,7 +44,7 @@ class wikireader
 		$page = $this->openPage($url);
 		return $page;
 	}
-	function pageProcess($page, $filePathToInsert)
+	function pageProcess($page, $filePathToInsert, $caching)
 	{
 		$dom = new DOMDocument();
 
@@ -89,13 +89,27 @@ class wikireader
 			$pageContent = substr($pageContent, 0, -10);
 		}
 		*/
-		if($filePathToInsert!== "")
+		if($filePathToInsert!== "" && $filePathToInsert !== false)
 		{
-			$pageContent = preg_replace('#href="/wiki/#', 'href="'.$filePathToInsert.'?uri=', $pageContent);
+			if($caching = true)
+			{
+				$pageContent = preg_replace('#href="/wiki/#', 'onClick="openWikiPageCached(this.href);" href="'.$filePathToInsert.'?uri=', $pageContent);
+			}
+			else
+			{
+				$pageContent = preg_replace('#href="/wiki/#', 'onClick="openWikiPage(this.href);" href="'.$filePathToInsert.'?uri=', $pageContent);
+			}
 		}
 		else
 		{
-			$pageContent = preg_replace('#href="/wiki/#', 'href="wikiLoad.php?uri=', $pageContent);
+			if($caching = true)
+			{
+				$pageContent = preg_replace('#href="/wiki/#', 'onClick="openWikiPageCached(this.href);" href="wikiLoad.php?uri=', $pageContent);
+			}
+			else
+			{
+				$pageContent = preg_replace('#href="/wiki/#', 'onClick="openWikiPage(this.href);" href="wikiLoad.php?uri=', $pageContent);
+			}
 		}
 		return $pageContent;
 		$dom->loadHTML($pageContent);
@@ -131,7 +145,7 @@ class wikireader
 		$pageContent = $dom->saveHTML();
 		return $pageContent;
 	}
-	function getLinks($page)
+	function getLinks($page, $tableName,$conn)
 	{
 		$dom = new DOMDocument();
 		libxml_use_internal_errors(true);
@@ -169,34 +183,33 @@ class wikireader
 					$counter++;
 					if($counter>=36)
 					{
-						echo $link->parentNode->parentNode->firstChild->c14n();
-						echo $this->saveLink($link->nodeValue,$link->getAttribute('href'), "", $dom);
-						/*echo $link->nodeValue;
-						echo $link->getAttribute('href'), '<br>';*/
+						$symbol = $link->parentNode->parentNode->firstChild->c14n();
+						echo $this->saveLink($link->nodeValue,$link->getAttribute('href'), $symbol, $dom, $tableName,$conn);
 					}
 				}
 			}
 		}
+		$conn->close();
 	}
-	function saveLink($title, $url, $symbol, $dom)
+	function saveLink($title, $uri, $symbol, $dom, $tableName,$conn)
 	{
-		if(strpos($url,"index.php"))
+		if(strpos($uri,"index.php"))
 		{
 			return "";
 		}
 		$title = ucwords($title);
-		$uri = explode("/",$url)[2];
-		$pageContent = $this->constructor($uri);
+		$uri = explode("/",$uri)[2];
+		$pageContent = $this->getPage($uri);
+		$pageContent = $this->pageProcess($pageContent,false, true);
 		$pageContent = $this->extremeCache($pageContent);
-		$conn = $this->database();
 		$pageContent = addslashes($pageContent);
-		$sql = "INSERT INTO wikipages VALUES (\"$title\",\"$symbol\",\"$url\",\"$pageContent\",0,0);";
+		$symbol = substr($symbol, 4, strlen($symbol) - 9);
+		$sql = "INSERT INTO $tableName VALUES (\"$title\",\"$symbol\",\"$uri\",\"$pageContent\",0,".strlen($pageContent).");";
 		if ($conn->query($sql) === TRUE) {
 			echo "New record created successfully";
 		} else {
 			echo "Error: " . $sql . "<br>" . $conn->error;
 		}
-		$conn->close();
 
 		return $title . "  " . $uri . "<br>" . "<br>";
 	}
@@ -218,7 +231,7 @@ class wikireader
 			return $status['http_code'];
 		}
 	}
-	function database($dbname = "", $servername = "localhost", $username = "root", $password = "")
+	function database($servername = "localhost", $username = "root", $password = "", $dbname = "")
 	{
 		$conn = new mysqli($servername, $username, $password, $dbname);
 		if ($conn->connect_error) {

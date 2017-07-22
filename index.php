@@ -12,7 +12,7 @@ class wikireader
 		$conn = $this->database($dbname, $servername, $username, $password);
 		$sql = "SELECT Contents FROM $tableName WHERE URI = $uri";
 		$result = $conn->query($sql);
-		$data = $result->fetch_row()
+		$data = $result->fetch_row();
 		echo $data[0];
 	}
 	public function loadPage($uri, $filePathToInsert = "")

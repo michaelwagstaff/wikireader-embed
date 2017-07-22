@@ -9,9 +9,11 @@ class wikireader
 		{
 			$uri = "/wiki/" . $uri;
 		}
-		$conn = database($dbname, $servername, $username, $password);
+		$conn = $this->database($dbname, $servername, $username, $password);
 		$sql = "SELECT Contents FROM $tableName WHERE URI = $uri";
-		$conn->query($sql);
+		$result = $conn->query($sql);
+		$data = $result->fetch_row()
+		echo $data[0];
 	}
 	public function loadPage($uri, $filePathToInsert = "")
 	{

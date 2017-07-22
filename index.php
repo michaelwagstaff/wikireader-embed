@@ -1,11 +1,22 @@
 <?php
-//Need to include a function or something so user does not need to create a seperate php file
 class wikireader
 {
-	public function loadPage($uri = "Silver_nitrate", $useCaching = false)
+	public function loadFromDB($uri, $dbname = "", $servername = "localhost", $username = "root", $password = "", $tableName = "wikipages", $key = "")
+	//The key currently identifies my site, which I messed up caching on
+	//Please do not use root with no password, I probably should not be encouraging this
+	{
+		if ($key = "a")
+		{
+			$uri = "/wiki/" . $uri;
+		}
+		$conn = database($dbname, $servername, $username, $password)
+		$sql = "SELECT Contents FROM $tableName WHERE URI = $uri"
+		$conn->query($sql);
+	}
+	public function loadPage($uri, $filePathToInsert = "")
 	{
 		$wikiPage = $this->getPage($uri);
-		$newPage = $this->pageProcess($wikiPage);
+		$newPage = $this->pageProcess($wikiPage, $filePathToInsert);
 		return $newPage;
 	}
 	public function cache($uri)
@@ -31,7 +42,7 @@ class wikireader
 		$page = $this->openPage($url);
 		return $page;
 	}
-	function pageProcess($page)
+	function pageProcess($page, $filePathToInsert)
 	{
 		$dom = new DOMDocument();
 
@@ -78,7 +89,14 @@ class wikireader
 			$pageContent = substr($pageContent, 0, -10);
 		}
 		*/
-		$pageContent = preg_replace('#href="/wiki/#', 'href="wikiLoad.php?uri=', $pageContent);
+		if($filePathToInsert!== "")
+		{
+			$pageContent = preg_replace('#href="/wiki/#', 'href="'.$filePathToInsert.'?uri=', $pageContent);
+		}
+		else
+		{
+			$pageContent = preg_replace('#href="/wiki/#', 'href="wikiLoad.php?uri=', $pageContent);
+		}
 		//Use an optional URL parameter to change the php file referenced
 		return $pageContent;
 		$dom->loadHTML($pageContent);
@@ -201,13 +219,8 @@ class wikireader
 			return $status['http_code'];
 		}
 	}
-	public function database()
-	//Why public??
+	function database($dbname = "", $servername = "localhost", $username = "root", $password = "")
 	{
-		$servername = "localhost";
-		$username = "root";
-		$password = "";
-		$dbname = "periodic";
 		$conn = new mysqli($servername, $username, $password, $dbname);
 		if ($conn->connect_error) {
 			die("Connection failed: " . $conn->connect_error);

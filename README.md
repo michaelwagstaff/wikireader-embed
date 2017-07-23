@@ -30,9 +30,9 @@ They are as follows:
 ```php
 public function loadPage(string $uri,[string $filePathToInsert])
 
-public function cache(string $uri, string $dbname, [string $servername], [string $username], [string $password], [string $tableName])
+public function cache(string $uri, int $firstLinkIndex, string $dbname, [string $servername], [string $username], [string $password], [string $tableName])
 
-public function loadPageFromDB(string $uri, int firstLinkIndex, string $dbname, [string $servername], [string $username], [string $password], [string $tableName])
+public function loadPageFromDB(string $uri, string $dbname, [string $servername], [string $username], [string $password], [string $tableName])
 ```
 
 The expected formatting and defaults are as follows:

@@ -1,14 +1,9 @@
 <?php
 class wikireader
 {
-	public function loadFromDB($uri, $dbname = "", $servername = "localhost", $username = "root", $password = "", $tableName = "wikipages", $key = "")
-	//The key currently identifies my site, which I messed up caching on
+	public function loadFromDB($uri, $dbname = "", $servername = "localhost", $username = "root", $password = "", $tableName = "wikipages")
 	//Please do not use root with no password, I probably should not be encouraging this
 	{
-		if ($key = "a")
-		{
-			$uri = $uri;
-		}
 		$conn = $this->database($servername, $username, $password, $dbname);
 		echo $uri;
 		$sql = "SELECT Contents FROM $tableName WHERE URI = '$uri'";

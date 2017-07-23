@@ -55,6 +55,20 @@ $tableName defaults to "wikipages".
 
 
 
+### Database Structure
+
+For using the database related function you should use mysql.
+
+Your table should contain four columns which are detailed as follows:
+
+```
+VARCHAR Title (Optional Name)
+VARCHAR URI
+MEDIUMTEXT Contents (Datatype depends on size of pages)
+MEDIUMINT Length (Optional Name)
+```
+
+
 
 ### Notes:
 

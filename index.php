@@ -7,9 +7,10 @@ class wikireader
 	{
 		if ($key = "a")
 		{
-			$uri = "/wiki/" . $uri;
+			$uri = $uri;
 		}
 		$conn = $this->database($servername, $username, $password, $dbname);
+		echo $uri;
 		$sql = "SELECT Contents FROM $tableName WHERE URI = '$uri'";
 		$result = $conn->query($sql);
 		$data = $result->fetch_row();

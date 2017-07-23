@@ -39,12 +39,19 @@ public function loadPageFromDB(string $uri, string $dbname, [string $servername]
 The expected formatting and defaults are as follows:
 
 $uri should contain the section of the url after the final slash. Internally https://wikipedia.org/wiki/ is inserted before this.
+
 $filePathToInsert defaults to "wikiLoad.php" if there is no input. This is the file that will handle the implementation of my class.
-$dbname should be the name of your database
-$servername defaults to "localhost"
-$username defaults to "root"
-$password defaults to an empty string
-$tableName defaults to "wikipages"
+
+$dbname should be the name of your database.
+
+$servername defaults to "localhost".
+
+$username defaults to "root".
+
+$password defaults to an empty string.
+
+$tableName defaults to "wikipages".
+
 
 
 

@@ -55,6 +55,8 @@ $tableName defaults to "wikipages".
 
 
 
-Notes:
+#### Notes:
+
 $uri in the cache function should link to a directory page, currently. I may later offer the ability to cache pages based on other metrics.
+
 It is strongly advised you use a different username and password combination

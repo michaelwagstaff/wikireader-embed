@@ -17,11 +17,11 @@ class wikireader
 		$newPage = $this->pageProcess($wikiPage, $filePathToInsert, false);
 		return $newPage;
 	}
-	public function cache($uri, $dbname, $servername = "localhost", $username = "root", $password = "", $tableName = "wikipages")
+	public function cache($uri, $firstLinkIndex, $dbname, $servername = "localhost", $username = "root", $password = "", $tableName = "wikipages")
 	{
 		$directory = $this->openPage($uri);
 		$conn = $this->database($servername,$username,$password,$dbname);
-		$this->getLinks($directory, $tableName,$conn);
+		$this->getLinks($directory,$firstLinkIndex,$tableName,$conn);
 	}
 	function getPage($uri)
 	{
@@ -43,8 +43,6 @@ class wikireader
 	function pageProcess($page, $filePathToInsert, $caching)
 	{
 		$dom = new DOMDocument();
-
-		//libxml_use_internal_errors(true);
 		$dom->loadHTML($page);
 		$toRemove = [];
 		$toRemove[] = $dom->getElementsByTagName('link');
@@ -75,16 +73,6 @@ class wikireader
 			}	
 		}
 		$pageContent = $dom->saveHTML();
-		/*
-		if(strlen($stringToSplit))
-		{
-			$toSplitString = $dom->saveHTML($tagToSplit);
-			
-
-			$pageContent = preg_split("[".$toSplitString."]", $pageContent)[0];
-			$pageContent = substr($pageContent, 0, -10);
-		}
-		*/
 		if($filePathToInsert!== "" && $filePathToInsert !== false)
 		{
 			if($caching = true)
@@ -141,7 +129,7 @@ class wikireader
 		$pageContent = $dom->saveHTML();
 		return $pageContent;
 	}
-	function getLinks($page, $tableName,$conn)
+	function getLinks($page,$firstLinkIndex,$tableName,$conn)
 	{
 		$dom = new DOMDocument();
 		libxml_use_internal_errors(true);
@@ -177,29 +165,28 @@ class wikireader
 				foreach($tableLinks as $link)
 				{
 					$counter++;
-					if($counter>=36)
+					if($counter>=$firstLinkIndex)
 					{
-						$symbol = $link->parentNode->parentNode->firstChild->c14n();
-						echo $this->saveLink($link->nodeValue,$link->getAttribute('href'), $symbol, $dom, $tableName,$conn);
+						echo $this->saveLink($link->nodeValue,$link->getAttribute('href'), $dom, $tableName,$conn);
 					}
 				}
 			}
 		}
 		$conn->close();
 	}
-	function saveLink($title, $uri, $symbol, $dom, $tableName,$conn)
+	function saveLink($title, $uri, $dom, $tableName,$conn)
 	{
 		if(strpos($uri,"index.php"))
 		{
 			return "";
 		}
+		//Crude way of finding broken links
 		$title = ucwords($title);
 		$uri = explode("/",$uri)[2];
 		$pageContent = $this->getPage($uri);
 		$pageContent = $this->pageProcess($pageContent,false, true);
 		$pageContent = $this->extremeCache($pageContent);
 		$pageContent = addslashes($pageContent);
-		$symbol = substr($symbol, 4, strlen($symbol) - 9);
 		$sql = "INSERT INTO $tableName VALUES (\"$title\",\"$symbol\",\"$uri\",\"$pageContent\",0,".strlen($pageContent).");";
 		if ($conn->query($sql) === TRUE) {
 			echo "New record created successfully";

@@ -187,7 +187,7 @@ class wikireader
 		$pageContent = $this->pageProcess($pageContent,false, true);
 		$pageContent = $this->extremeCache($pageContent);
 		$pageContent = addslashes($pageContent);
-		$sql = "INSERT INTO $tableName VALUES (\"$title\",\"$symbol\",\"$uri\",\"$pageContent\",0,".strlen($pageContent).");";
+		$sql = "INSERT INTO $tableName VALUES (\"$title\",\"$uri\",\"$pageContent\",".strlen($pageContent).");";
 		if ($conn->query($sql) === TRUE) {
 			echo "New record created successfully";
 		} else {

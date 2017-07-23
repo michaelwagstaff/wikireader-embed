@@ -5,6 +5,8 @@ This is currently under development so use at your own risk, it may contain bugs
 
 This wikireader is designed to load wikipedia pages, presenting the data in a more user friendly manner.
 
+It is designed to be generic, so should work in most use cases.
+
 ## Installation
 
 Download the repository or add as a submodule to the root of your existing code
@@ -54,14 +56,19 @@ $tableName defaults to "wikipages".
 
 
 
-#### Notes:
+### Notes:
 
 $uri in the cache function should link to a directory page, currently. I may later offer the ability to cache pages based on other metrics.
 
-It is strongly advised you use a different username and password combination
+It is strongly advised you use a different username and password combination to the one listed above.
+
+If you are looking to save chemical symbols check out the 'periodicstats' branch. This is non-generic and includes my caching of symbols.
 
 ## To-Do
 
 Add a demo - will probably be on the site listed above, when fully integrated.
+
 I would like to add the ability to cache individual pages
+
 Improve caching and css to improve embedding - css won't affect rest of page
+

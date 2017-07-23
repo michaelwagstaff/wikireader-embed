@@ -22,7 +22,7 @@ class wikireader
 		$newPage = $this->pageProcess($wikiPage, $filePathToInsert, false);
 		return $newPage;
 	}
-	public function cache($uri, $dbname = "", $servername = "localhost", $username = "root", $password = "", $tableName = "wikipages")
+	public function cache($uri, $dbname, $servername = "localhost", $username = "root", $password = "", $tableName = "wikipages")
 	{
 		$directory = $this->openPage($uri);
 		$conn = $this->database($servername,$username,$password,$dbname);

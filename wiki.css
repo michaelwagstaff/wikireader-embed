@@ -1,37 +1,37 @@
 
-body, h1, h2, h3, a
+body, .mediawiki h1, .mediawiki h2, .mediawiki h3, .mediawiki a
 {
-	font-family: "San Francisco", "Helvetica Neue", "Roboto", "Segoe UI", Helvetica, Arial, sans-serif;
+	font-family: "San Francisco", .mediawiki "Helvetica Neue", .mediawiki "Roboto", .mediawiki "Segoe UI", .mediawiki Helvetica, .mediawiki Arial, .mediawiki sans-serif;
 	font-weight: 400;
 	color:#37393a;
 	line-height: 1.7;
 }
-h1, h2, h3
+.mediawiki h1, .mediawiki h2, .mediawiki h3
 {
 	font-weight: 400;
 	-webkit-margin-after: 0px;
 }
-.mw-jump, .toc, .mw-editsection, .reference,.references, #References, .reflist, #footer, .portal, #p-search, .vectorMenu, .vectorTabs, #mw-navigation, .nv-view, .nv-talk, .nv-edit, li>sup,.ambox,.mw-indicators,.navbox,.mw-normal-catlinks,.mw-hidden-catlinks,.stub,.printfooter
+.mediawiki .mw-jump, .mediawiki .toc, .mediawiki .mw-editsection, .mediawiki .reference, .mediawiki .references, .mediawiki #References, .mediawiki .reflist, .mediawiki #footer, .mediawiki .portal, .mediawiki #p-search, .mediawiki .vectorMenu, .mediawiki .vectorTabs, .mediawiki #mw-navigation, .mediawiki .nv-view, .mediawiki .nv-talk, .mediawiki .nv-edit, .mediawiki li>sup, .mediawiki .ambox, .mediawiki .mw-indicators, .mediawiki .navbox, .mediawiki .mw-normal-catlinks, .mediawiki .mw-hidden-catlinks, .mediawiki .stub, .mediawiki .printfooter
 {
 	display:none;
 }
-#siteSub
+.mediawiki #siteSub
 {
 	margin-bottom: 1.7em;
 	font-size: 1.2em;
 	color:#676a74;
 }
-a
+.mediawiki a
 {
 	font-style: italic;
 }
-.infobox
+.mediawiki .infobox
 {
 	float:right;
 	min-width: 20vw;
 	margin-left: 2vw;
 }
-.infobox ul
+.mediawiki .infobox ul
 {
 	list-style: none;
 	-webkit-margin-before: 0;
@@ -40,28 +40,28 @@ a
     -webkit-margin-end: 0;
     -webkit-padding-start: 0;
 }
-.infobox th,.infobox tr, .infobox td
+.mediawiki .infobox th, .mediawiki .infobox tr, .mediawiki .infobox td
 {
 	background: none !important;
 }
-.infobox th
+.mediawiki .infobox th
 {
 	padding-top:1.5em;
 	padding-bottom:0.5em;
 }
-.infobox td, .infobox tr th {
+.mediawiki .infobox td, .mediawiki .infobox tr th {
 	padding-top:0.5em;
 	padding-bottom:0.5em;
 }
-.infobox tr
+.mediawiki .infobox tr
 {
 	border-bottom:1px solid #ccc;
 }
-.infobox a
+.mediawiki .infobox a
 {
 	font-style: initial;
 }
-#content
+.mediawiki #content
 {
 	max-width: 80%;
 	left:0;
@@ -69,26 +69,26 @@ a
 	margin:auto;
 	margin-top: 10vh;
 }
-h1
+.mediawiki h1
 {
 	font-size: 3em;
 }
-.mw-headline
+.mediawiki .mw-headline
 {
 	font-size: 1.5em;
 }
-p
+.mediawiki p
 {
 	font-size: 1.2em;
 }
 @media only screen and (max-width: 720px)
 {
-	.infobox
+	.mediawiki .infobox
 	{
 		float:none;
 		width:100%;
 	}
-	#content
+	.mediawiki #content
 	{
 		max-width:100%;
 	}

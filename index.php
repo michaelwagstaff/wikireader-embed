@@ -62,21 +62,14 @@ class wikireader
 		//Make into an array of inputs
 		foreach ($remove as $item)
 		{
-			if($counter == 0)
-			{
-				$item->parentNode->replaceChild($cssLink, $item);
-				$counter++;
-			}
-			else
-			{
-				$item->parentNode->removeChild($item);
-			}	
+
+			$item->parentNode->removeChild($item);
 		}
 		//$pageContent = renameBody($dom);
 		$pageContent = $dom->saveHTML();
 		$pageContent = preg_split("#<body#", $pageContent)[1];
 		$pageContent = preg_split("#</body>#", $pageContent)[0];
-		$pageContent = "<section" . $pageContent . "</section>";
+		$pageContent = "<link rel = \"stylesheet\" href = \"/wikireader/wiki.css\"><section" . $pageContent . "</section>";
 		if($filePathToInsert!== "" && $filePathToInsert !== false)
 		{
 			if($caching = true)

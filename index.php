@@ -72,7 +72,11 @@ class wikireader
 				$item->parentNode->removeChild($item);
 			}	
 		}
-		$pageContent = renameBody($dom);
+		//$pageContent = renameBody($dom);
+		$pageContent = $dom->saveHTML();
+		$pageContent = preg_split("#<body#", $pageContent)[1];
+		$pageContent = preg_split("#</body>#", $pageContent)[0];
+		$pageContent = "<section" . $pageContent . "</section>";
 		if($filePathToInsert!== "" && $filePathToInsert !== false)
 		{
 			if($caching = true)

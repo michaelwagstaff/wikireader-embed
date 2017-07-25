@@ -72,7 +72,7 @@ class wikireader
 				$item->parentNode->removeChild($item);
 			}	
 		}
-		$pageContent = $dom->saveHTML();
+		$pageContent = renameBody($dom);
 		if($filePathToInsert!== "" && $filePathToInsert !== false)
 		{
 			if($caching = true)
@@ -137,8 +137,6 @@ class wikireader
 		$counter = 0;
 		$outerCounter = 0;
 		$toRemove = [];
-		/*$toRemove[] = $dom->getElementById('toc');
-		$toRemove[] = $dom->getElementById('collapsibleTable0');*/
 		foreach ($toRemove as $item)
 		{
 			$item->parentNode->removeChild($item);
@@ -173,6 +171,13 @@ class wikireader
 			}
 		}
 		$conn->close();
+	}
+	function renameBody($dom)
+	{
+		$body = $dom->getElementsByTagName("body")[0];
+		$pageContent = $dom->saveHTML($body);
+		return $pageContent;
+
 	}
 	function saveLink($title, $uri, $dom, $tableName,$conn)
 	{

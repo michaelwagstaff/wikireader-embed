@@ -162,7 +162,10 @@ class wikireader
 					$counter++;
 					if($counter>=$firstLinkIndex)
 					{
-						echo $this->saveLink($link->nodeValue,$link->getAttribute('href'), $dom, $tableName,$conn);
+						$symbol = $link->parentNode->parentNode->firstChild->c14n();
+						$symbol = str_replace("<td>", "", $symbol);
+						$symbol = str_replace("</td>", "", $symbol);
+						echo $this->saveLink($link->nodeValue,$link->getAttribute('href'),$symbol,  $dom, $tableName,$conn);
 					}
 				}
 			}
@@ -176,7 +179,7 @@ class wikireader
 		return $pageContent;
 
 	}
-	function saveLink($title, $uri, $dom, $tableName,$conn)
+	function saveLink($title, $uri, $symbol, $dom, $tableName,$conn)
 	{
 		if(strpos($uri,"index.php"))
 		{
@@ -188,8 +191,10 @@ class wikireader
 		$pageContent = $this->getPage($uri);
 		$pageContent = $this->pageProcess($pageContent,false, true);
 		$pageContent = $this->extremeCache($pageContent);
+		$pageContent = preg_split("#<head>#", $pageContent)[1];
+		$pageContent = preg_split("#</head>#", $pageContent)[0];
 		$pageContent = addslashes($pageContent);
-		$sql = "INSERT INTO $tableName VALUES (\"$title\",\"$uri\",\"$pageContent\",".strlen($pageContent).");";
+		$sql = "INSERT INTO $tableName VALUES (\"$title\",\"$symbol\",\"$uri\",\"$pageContent\", 0, ".strlen($pageContent).");";
 		if ($conn->query($sql) === TRUE) {
 			echo "New record created successfully";
 		} else {

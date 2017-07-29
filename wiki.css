@@ -1,5 +1,4 @@
-
-body, .mediawiki h1, .mediawiki h2, .mediawiki h3, .mediawiki a
+.mediawiki h1, .mediawiki h2, .mediawiki h3, .mediawiki a
 {
 	font-family: "San Francisco", .mediawiki "Helvetica Neue", .mediawiki "Roboto", .mediawiki "Segoe UI", .mediawiki Helvetica, .mediawiki Arial, .mediawiki sans-serif;
 	font-weight: 400;
@@ -10,6 +9,10 @@ body, .mediawiki h1, .mediawiki h2, .mediawiki h3, .mediawiki a
 {
 	font-weight: 400;
 	-webkit-margin-after: 0px;
+}
+.mediawiki h2
+{
+	margin-top: 1.2em;
 }
 .mediawiki .mw-jump, .mediawiki .toc, .mediawiki .mw-editsection, .mediawiki .reference, .mediawiki .references, .mediawiki #References, .mediawiki .reflist, .mediawiki #footer, .mediawiki .portal, .mediawiki #p-search, .mediawiki .vectorMenu, .mediawiki .vectorTabs, .mediawiki #mw-navigation, .mediawiki .nv-view, .mediawiki .nv-talk, .mediawiki .nv-edit, .mediawiki li>sup, .mediawiki .ambox, .mediawiki .mw-indicators, .mediawiki .navbox, .mediawiki .mw-normal-catlinks, .mediawiki .mw-hidden-catlinks, .mediawiki .stub, .mediawiki .printfooter
 {

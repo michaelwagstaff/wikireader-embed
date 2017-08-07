@@ -5,7 +5,6 @@ class wikireader
 	//Please do not use root with no password, I probably should not be encouraging this
 	{
 		$conn = $this->database($servername, $username, $password, $dbname);
-		echo $uri;
 		$sql = "SELECT Contents FROM $tableName WHERE URI = '$uri'";
 		$result = $conn->query($sql);
 		$data = $result->fetch_row();
@@ -35,7 +34,7 @@ class wikireader
 		}
 		else
 		{
-			$url = "Silver_nitrate";
+			//If there isn't a UL entered
 		}
 		$page = $this->openPage($url);
 		return $page;
@@ -62,17 +61,14 @@ class wikireader
 		//Make into an array of inputs
 		foreach ($remove as $item)
 		{
-			if($counter == 0)
-			{
-				$item->parentNode->replaceChild($cssLink, $item);
-				$counter++;
-			}
-			else
-			{
-				$item->parentNode->removeChild($item);
-			}	
+
+			$item->parentNode->removeChild($item);
 		}
 		$pageContent = $dom->saveHTML();
+		$pageContent = preg_split("#<body#", $pageContent)[1];
+		$pageContent = preg_split("#</body>#", $pageContent)[0];
+		$pageContent = "<link rel = \"stylesheet\" href = \"/wikireader/wiki.css\"><section" . $pageContent . "</section>";
+		//Selects HTML within body tags and adds in custom CSS
 		if($filePathToInsert!== "" && $filePathToInsert !== false)
 		{
 			if($caching = true)
@@ -83,6 +79,7 @@ class wikireader
 			{
 				$pageContent = preg_replace('#href="/wiki/#', 'onClick="openWikiPage(this.href);" href="'.$filePathToInsert.'?uri=', $pageContent);
 			}
+			//Same commands as below but inserts a custom file path for handling
 		}
 		else
 		{
@@ -137,8 +134,6 @@ class wikireader
 		$counter = 0;
 		$outerCounter = 0;
 		$toRemove = [];
-		/*$toRemove[] = $dom->getElementById('toc');
-		$toRemove[] = $dom->getElementById('collapsibleTable0');*/
 		foreach ($toRemove as $item)
 		{
 			$item->parentNode->removeChild($item);
@@ -150,6 +145,7 @@ class wikireader
 		$pageContent = $dom->saveHTML();
 		$pageContent = preg_split("[".$toSplitString."]", $pageContent)[0];
 		$dom->loadHTML($pageContent);
+		//Cuts page before external links
 
 
 		$tables[] = $dom->getElementsByTagName('table');

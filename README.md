@@ -84,5 +84,4 @@ Add a demo - will probably be on the site listed above, when fully integrated.
 
 I would like to add the ability to cache individual pages
 
-Improve caching and css to improve embedding - css won't affect rest of page
-
+Make CSS specific to the embedded content

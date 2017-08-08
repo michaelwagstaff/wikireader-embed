@@ -1,9 +1,9 @@
 # wikireader
 This is a clean wikipedia reader, designed for use on my website [periodicstats.com](https://periodicstats.com).
 
-This is currently under development so use at your own risk, it may contain bugs.
+It is designed to be used for embedding wikipedia pages in web applications, and offers custmomisability in how it is implemented. 
 
-This wikireader is designed to load wikipedia pages, presenting the data in a more user friendly manner.
+It is also designed to allow caching in a database, to speed up page loads, and contains some basic CSS (still in progress) to get you started.
 
 It is designed to be generic, so should work in most use cases.
 
@@ -23,7 +23,7 @@ Firstly create a new instance of the class as follows:
 $wikireader = new wikireader();
 ```
 
-The class contains three public functions, of which I recommend one for use.
+The class contains three public functions, one for loading a page, using your server as a proxy working in real time. The other two functions are for caching pages, with approprate modification, into a database, and for loaing them on demand.
 
 They are as follows:
 
@@ -62,26 +62,28 @@ For using the database related function you should use mysql.
 Your table should contain four columns which are detailed as follows:
 
 ```
-VARCHAR Title (Optional Name)
+VARCHAR Title
 VARCHAR URI
 MEDIUMTEXT Contents (Datatype depends on size of pages)
-MEDIUMINT Length (Optional Name)
+MEDIUMINT Length
 ```
 
 
 
 ### Notes:
 
-$uri in the cache function should link to a directory page, currently. I may later offer the ability to cache pages based on other metrics.
++ $uri in the cache function should link to a directory page, currently. I may later offer the ability to cache pages based on other metrics.
 
-It is strongly advised you use a different username and password combination to the one listed above.
++ It is strongly advised you use a different username and password combination to the one listed above.
 
-If you are looking to save chemical symbols check out the 'periodicstats' branch. This is non-generic and includes my caching of symbols.
++ If you are looking to save chemical symbols check out the 'periodicstats' branch. This is non-generic and includes my caching of symbols.
 
 ## To-Do
 
-Add a demo - will probably be on the site listed above, when fully integrated.
++ Add a demo - will probably be on the site listed above, when fully integrated.
 
-I would like to add the ability to cache individual pages
++ I would like to add the ability to cache individual pages, rather than from a directory page
 
-Make CSS specific to the embedded content
++ Improve CSS to make the design more responsive, and to cover more elements
+
++ Add further options for caching, such as redis for greater speed, although this would be memory intensive, and could take some time to properly program
